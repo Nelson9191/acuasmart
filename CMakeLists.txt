@@ -40,6 +40,9 @@ get_filename_component(QUEUE_COMPONENT "components/am_queue" ABSOLUTE)
 
 get_filename_component(MQTT_COMPONENT "components/am_mqtt" ABSOLUTE)
 
+get_filename_component(WIFI_COMPONENT "components/am_wifi" ABSOLUTE)
+
+
 get_filename_component(ESPRESSIF_CODE_COMPONENT "/amazon-freertos/vendors/espressif/boards/esp32/aws_demos/config_files" ABSOLUTE)
 #get_filename_component(ESPRESSIF_CODE_COMPONENT "/amazon-freertos/vendors/espressif/boards/esp32/aws_demos/application_code/espressif_code" ABSOLUTE)
 
@@ -53,6 +56,7 @@ set(IDF_EXTRA_COMPONENT_DIRS
     ${AUTH_COMPONENT}
     ${QUEUE_COMPONENT}
     ${MQTT_COMPONENT}
+    ${WIFI_COMPONENT}
 )
 
 

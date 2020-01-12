@@ -78,7 +78,6 @@
 
 #include "IP_config.h"
 #include "acua_utils.h"
-#include "mqtt_info.h"
 #include "flags.h"
 #include "am_authentication.h"
 #include "am_queue.h"

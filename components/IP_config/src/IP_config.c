@@ -1,5 +1,5 @@
 #include "IP_config.h"
-#include "mqtt_info.h"
+#include "am_mqtt_info.h"
 
 void vApplicationIPInit( void )
 {
