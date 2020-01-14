@@ -7,7 +7,7 @@ project(freertos_examples)
 set(IDF_PROJECT_EXECUTABLE my_app)
 
 
-file(GLOB HEADERS "config_files/*.h" "app/common/config_files/*.h")
+file(GLOB HEADERS "config_files/*.h")
 file(GLOB SOURCES "src/*.c")
 add_executable(my_app ${SOURCES} ${HEADERS})
 
@@ -31,7 +31,7 @@ get_filename_component(UTILS_COMPONENT "components/acua_utils" ABSOLUTE)
 #list(APPEND IDF_EXTRA_COMPONENT_DIRS ${EXTRA_COMPONENT_DIRS})
 
 #get_filename_component(EXTRA_COMPONENT_DIRS "components/flags" ABSOLUTE)
-get_filename_component(FLAGS_COMPONENT "components/flags" ABSOLUTE)
+get_filename_component(FLAGS_COMPONENT "components/am_flags" ABSOLUTE)
 #list(APPEND IDF_EXTRA_COMPONENT_DIRS ${EXTRA_COMPONENT_DIRS})
 
 get_filename_component(AUTH_COMPONENT "components/am_authentication" ABSOLUTE)
@@ -41,6 +41,12 @@ get_filename_component(QUEUE_COMPONENT "components/am_queue" ABSOLUTE)
 get_filename_component(MQTT_COMPONENT "components/am_mqtt" ABSOLUTE)
 
 get_filename_component(WIFI_COMPONENT "components/am_wifi" ABSOLUTE)
+
+get_filename_component(GPIO_COMPONENT "components/am_gpio" ABSOLUTE)
+
+get_filename_component(RTC_COMPONENT "components/am_rtc" ABSOLUTE)
+
+
 
 
 get_filename_component(ESPRESSIF_CODE_COMPONENT "/amazon-freertos/vendors/espressif/boards/esp32/aws_demos/config_files" ABSOLUTE)
@@ -57,8 +63,12 @@ set(IDF_EXTRA_COMPONENT_DIRS
     ${QUEUE_COMPONENT}
     ${MQTT_COMPONENT}
     ${WIFI_COMPONENT}
+    ${GPIO_COMPONENT}
+    ${RTC_COMPONENT}
 )
 
+# Override the configurations for Amazon FreeRTOS.
+include_directories(BEFORE amazon-freertos-configs)
 
 # Add amazon freertos as a subdirectory. AFR_BOARD tells which board to target.
 set(AFR_BOARD espressif.esp32_devkitc CACHE INTERNAL "")

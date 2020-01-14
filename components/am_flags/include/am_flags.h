@@ -1,5 +1,5 @@
-#ifndef _FLAGS_H_
-#define _FLAGS_H_
+#ifndef _AM_FLAGS_H_
+#define _AM_FLAGS_H_
 
 #include <stdbool.h>
 
@@ -25,59 +25,59 @@ Inicializa módulo. Crea mutex y limpia flgas de control
 @Params:
 @Return:
 */
-void flags_init();
+void am_flags_init();
 
 /*
 Revisa si el módulo de NVS se inicializó.
 @Params:
 @Return: true si módulo inicializado, false de lo contrario
 */
-bool flags_is_nvs_ok();
+bool am_flags_is_nvs_ok();
 
 /*
 Setea flag de NVS inicializado
 @Params:
 @Return: 
 */
-void flags_set_nvs_ok();
+void am_flags_set_nvs_ok();
 
 /*
 Revisa si módulo de WiFi se inicializó
 @Params:
 @Return: true si módulo inicializado, false de lo contrario
 */
-bool flags_is_wifi_connected();
+bool am_flags_is_wifi_connected();
 
 /*
 Setea flag de WiFi inicializado
 @Params:
 @Return: 
 */
-void flags_set_wifi_connected();
+void am_flags_set_wifi_connected();
 
 /*
 Resetea flag de WiFi inicializado
 @Params:
 @Return: 
 */
-void flags_reset_wifi_connected();
+void am_flags_reset_wifi_connected();
 
 
-bool flags_is_mqtt_connected();
+bool am_flags_is_mqtt_connected();
 
 /*
 Setea flag de cliente MQTT conectado
 @Params:
 @Return: 
 */
-void flags_set_mqtt_connected();
+void am_flags_set_mqtt_connected();
 
 /*
 Resetea flag de MQTT
 @Params:
 @Return: 
 */
-void flags_reset_mqtt_connected();
+void am_flags_reset_mqtt_connected();
 
 
 

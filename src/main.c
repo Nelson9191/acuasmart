@@ -78,10 +78,11 @@
 
 #include "IP_config.h"
 #include "acua_utils.h"
-#include "flags.h"
+#include "am_flags.h"
 #include "am_authentication.h"
 #include "am_queue.h"
 #include "am_mqtt.h"
+#include "am_gpio.h"
 
 
 /* Logging Task Defines. */
@@ -123,7 +124,7 @@ int app_main( void )
 
     if( SYSTEM_Init() == pdPASS )
     {
-        flags_init();
+        am_flags_init();
         /* A simple example to demonstrate key and certificate provisioning in
          * microcontroller flash using PKCS#11 interface. This should be replaced
          * by production ready key provisioning mechanism. */
@@ -131,6 +132,7 @@ int app_main( void )
         am_authentication_init();
         am_queue_init();
         am_mqtt_init();
+        am_gpio_init();
 
 
         #if BLE_ENABLED
