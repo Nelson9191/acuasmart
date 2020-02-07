@@ -49,6 +49,10 @@ get_filename_component(RTC_COMPONENT "components/am_rtc" ABSOLUTE)
 
 get_filename_component(RUNNER_COMPONENT "components/am_runner" ABSOLUTE)
 
+get_filename_component(NTP_COMPONENT "components/am_ntp" ABSOLUTE)
+
+get_filename_component(UDP_COMPONENT "components/am_udp" ABSOLUTE)
+
 
 
 get_filename_component(ESPRESSIF_CODE_COMPONENT "/amazon-freertos/vendors/espressif/boards/esp32/aws_demos/config_files" ABSOLUTE)
@@ -68,6 +72,8 @@ set(IDF_EXTRA_COMPONENT_DIRS
     ${GPIO_COMPONENT}
     ${RTC_COMPONENT}
     ${RUNNER_COMPONENT}
+    ${NTP_COMPONENT}
+    ${UDP_COMPONENT}
 )
 
 # Override the configurations for Amazon FreeRTOS.

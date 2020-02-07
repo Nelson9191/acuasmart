@@ -84,6 +84,8 @@
 #include "am_mqtt.h"
 #include "am_gpio.h"
 #include "am_wifi.h"
+#include "am_rtc.h"
+#include "am_ntp.h"
 
 
 /* Logging Task Defines. */
@@ -149,11 +151,13 @@ int app_main( void )
         am_authentication_init();
         am_queue_init();
         am_gpio_init();
+        am_rtc_init();
         
         if (am_wifi_init())
         {
             am_wifi_start_task();
             vTaskDelay(6000 / portTICK_RATE_MS);
+            am_ntp_init();
             am_mqtt_init();
             //am_mqtt_start_task();
         }
