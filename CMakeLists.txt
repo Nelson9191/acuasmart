@@ -7,7 +7,7 @@ project(freertos_examples)
 set(IDF_PROJECT_EXECUTABLE my_app)
 
 
-file(GLOB HEADERS "config_files/*.h")
+file(GLOB HEADERS "config_files/*.h" "demos_config_files/*.h")
 file(GLOB SOURCES "src/*.c")
 add_executable(my_app ${SOURCES} ${HEADERS})
 
@@ -15,6 +15,7 @@ add_executable(my_app ${SOURCES} ${HEADERS})
 #Configuration files
 set(INCLUDE_DIRS ${INCLUDE_DIRS} 
     "config_files/"
+    "demos_config_files/"
     )
 include_directories(${INCLUDE_DIRS})
 
@@ -46,6 +47,7 @@ get_filename_component(GPIO_COMPONENT "components/am_gpio" ABSOLUTE)
 
 get_filename_component(RTC_COMPONENT "components/am_rtc" ABSOLUTE)
 
+get_filename_component(RUNNER_COMPONENT "components/am_runner" ABSOLUTE)
 
 
 
@@ -65,6 +67,7 @@ set(IDF_EXTRA_COMPONENT_DIRS
     ${WIFI_COMPONENT}
     ${GPIO_COMPONENT}
     ${RTC_COMPONENT}
+    ${RUNNER_COMPONENT}
 )
 
 # Override the configurations for Amazon FreeRTOS.
@@ -82,7 +85,6 @@ target_link_libraries(my_app PRIVATE AFR::dev_mode_key_provisioning)
 #target_link_libraries(my_app PRIVATE 3rdparty::jsmn)
 #target_link_libraries(my_app PRIVATE AFR::wifi)
 #target_link_libraries(my_app PRIVATE AFR::ota)
-#target_link_libraries(my_app PRIVATE AFR::demo_mqtt)
 
 
 

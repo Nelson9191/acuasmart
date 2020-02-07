@@ -83,6 +83,7 @@
 #include "am_queue.h"
 #include "am_mqtt.h"
 #include "am_gpio.h"
+#include "am_wifi.h"
 
 
 /* Logging Task Defines. */
@@ -120,21 +121,11 @@ int app_main( void )
     /* Perform any hardware initialization that does not require the RTOS to be
      * running.  */
 
+    //Initializes IP stack (  FreeRTOS_IPInit()  )
     prvMiscInitialization();
 
     if( SYSTEM_Init() == pdPASS )
     {
-        am_flags_init();
-        /* A simple example to demonstrate key and certificate provisioning in
-         * microcontroller flash using PKCS#11 interface. This should be replaced
-         * by production ready key provisioning mechanism. */
-        //vDevModeKeyProvisioning();
-        am_authentication_init();
-        am_queue_init();
-        am_mqtt_init();
-        am_gpio_init();
-
-
         #if BLE_ENABLED
             /* Initialize BLE. */
             if( prvBLEStackInit() != ESP_OK )
@@ -149,8 +140,28 @@ int app_main( void )
             ESP_ERROR_CHECK( esp_bt_controller_mem_release( ESP_BT_MODE_CLASSIC_BT ) );
             ESP_ERROR_CHECK( esp_bt_controller_mem_release( ESP_BT_MODE_BLE ) );
         #endif /* if BLE_ENABLED */
+
+        am_flags_init();
+        /* A simple example to demonstrate key and certificate provisioning in
+         * microcontroller flash using PKCS#11 interface. This should be replaced
+         * by production ready key provisioning mechanism. */
+        //vDevModeKeyProvisioning();
+        am_authentication_init();
+        am_queue_init();
+        am_gpio_init();
+        
+        if (am_wifi_init())
+        {
+            am_wifi_start_task();
+            vTaskDelay(6000 / portTICK_RATE_MS);
+            am_mqtt_init();
+            //am_mqtt_start_task();
+        }
+
+
         /* Run all demos. */
         //DEMO_RUNNER_RunDemos();
+
     }
 
     /* Start the scheduler.  Initialization that requires the OS to be running,

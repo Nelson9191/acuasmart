@@ -7,11 +7,8 @@ set(COMPONENT_SRCDIRS src)
 # set(COMPONENT_SRCS src/utils.c)
 
 # add this components, this will define a CMake library target.
-
-set(COMPONENT_REQUIRES am_runner am_flags)
-
 register_component()
 
-target_link_libraries(${COMPONENT_TARGET} PRIVATE AFR::mqtt)
-#target_link_libraries(${COMPONENT_TARGET} PRIVATE AFR::demo_mqtt)
+#target_link_libraries(${COMPONENT_TARGET} PRIVATE AFR::mqtt)
+target_link_libraries(${COMPONENT_TARGET} PRIVATE AFR::demo_mqtt)
 

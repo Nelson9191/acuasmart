@@ -1,3 +1,6 @@
+//Configuration files
+#include "task_config.h"
+
 #include "am_wifi.h"
 
 /* Socket and WiFi interface includes. */
@@ -29,6 +32,7 @@
 #include "am_queue.h"
 #include "am_flags.h"
 
+
 static const char *TAG = "WIFI";
 static EventGroupHandle_t wifi_event_group;
 const int CONNECTED_BIT = BIT0;
@@ -45,6 +49,20 @@ static bool wifi_auth_failure;
 #define WIFI_FLASH_NS     "WiFi"
 #define MAX_WIFI_KEY_WIDTH         ( 5 )
 #define MAX_SECURITY_MODE_LEN      ( 1 )
+
+bool am_wifi_init()
+{
+    return (WIFI_On() == eWiFiSuccess);
+}
+
+void am_wifi_start_task(){
+    ( void ) xTaskCreate( wifi_config_task,
+                    TASK_WIFI_NAME,
+                    TASK_WIFI_STACK_SIZE,
+                    NULL,
+                    TASK_WIFI_PRIORITY,
+                    NULL );
+}
 
 void wifi_config_task(void * pvParameters){
     WIFINetworkParams_t xNetworkParams;
@@ -70,6 +88,8 @@ void wifi_config_task(void * pvParameters){
             xWifiStatus = WIFI_ConnectAP( &( xNetworkParams ) );
             if( xWifiStatus == eWiFiSuccess ){ 
                 configPRINTF( ( "WiFi connected!\r\n") );
+                connected = true;
+                connecting = false;
             }
             else{
                 configPRINTF( ( "Unable to CONNECT...\r\n" ) );
@@ -109,7 +129,6 @@ void wifi_config_task(void * pvParameters){
                     break;
                 }
         }
-
 
         vTaskDelay(2000 / portTICK_PERIOD_MS);
     }
